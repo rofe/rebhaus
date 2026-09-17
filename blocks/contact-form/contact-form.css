@@ -54,7 +54,10 @@
 .contact-form input::placeholder,
 .contact-form textarea::placeholder { color: rgb(255 255 255 / 70%); }
 
-.contact-form textarea { min-height: 150px; resize: vertical; }
+.contact-form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
 
 .contact-form .cf-send {
   border: 1px solid var(--primary-color);
@@ -68,7 +71,10 @@
   transition: background 0.2s, color 0.2s;
 }
 
-.contact-form .cf-send:hover { background: var(--primary-color); color: #fff; }
+.contact-form .cf-send:hover {
+  background: var(--primary-color);
+  color: #fff;
+}
 
 .contact-form .cf-note {
   margin: 4px 0 0;
@@ -76,7 +82,10 @@
   color: var(--text-muted);
 }
 
-.contact-form .cf-note a { color: var(--primary-color); text-decoration: underline; }
+.contact-form .cf-note a {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
 
 @media (width <= 700px) {
   .contact-form .cf-row2 { grid-template-columns: 1fr; }

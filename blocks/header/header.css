@@ -43,6 +43,16 @@ header .nav-pill a[aria-current="page"] {
 
 @media (width <= 600px) {
   header .header { padding: 12px 10px; }
-  header .nav-pill { gap: 14px; padding: 12px 16px; flex-wrap: wrap; justify-content: center; }
-  header .nav-pill a { font-size: 11px; letter-spacing: 0.06em; }
+
+  header .nav-pill {
+    gap: 14px;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  header .nav-pill a {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
 }

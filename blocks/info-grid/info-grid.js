@@ -10,7 +10,7 @@ const ICONS = {
   adresse: '<path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
   telefon: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 18v-4l-5-2"/>',
   'e-mail': '<rect x="3" y="5" width="18" height="14"/><path d="M3 6l9 7 9-7"/>',
-  'öffnungszeiten': '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  öffnungszeiten: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
 };
 
 function iconFor(label) {

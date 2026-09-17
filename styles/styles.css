@@ -7,14 +7,14 @@
 
 :root {
   /* brand colors (measured from live rebhaus.ch) */
-  --background-color: #ffffff;
+  --background-color: #fff;
   --surface-color: #fafafa;
   --text-color: #2f2e2e;
   --text-muted: #605e5e;
   --primary-color: #497e76;   /* sage green */
   --secondary-color: #41baae; /* bright teal */
-  --ink-color: #000000;
-  --rule-color: #dddddd;
+  --ink-color: #000;
+  --rule-color: #ddd;
   --link-color: #497e76;
   --link-hover-color: #41baae;
 
@@ -152,14 +152,36 @@ button.button {
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
-a.button.primary { background: var(--primary-color); color: #fff; }
-a.button.primary:hover { background: var(--secondary-color); border-color: var(--secondary-color); }
+a.button.primary {
+  background: var(--primary-color);
+  color: #fff;
+}
 
-a.button.secondary { background: transparent; color: var(--primary-color); }
-a.button.secondary:hover { background: var(--primary-color); color: #fff; }
+a.button.primary:hover {
+  background: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
 
-a.button.accent { background: var(--secondary-color); border-color: var(--secondary-color); color: #fff; }
-a.button.accent:hover { background: var(--primary-color); border-color: var(--primary-color); }
+a.button.secondary {
+  background: transparent;
+  color: var(--primary-color);
+}
+
+a.button.secondary:hover {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+a.button.accent {
+  background: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: #fff;
+}
+
+a.button.accent:hover {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
 
 main img {
   display: block;
@@ -175,13 +197,21 @@ main img {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
 
-.icon { display: inline-block; height: 24px; width: 24px; }
-.icon img { height: 100%; width: 100%; }
+.icon {
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+}
+
+.icon img {
+  height: 100%;
+  width: 100%;
+}
 
 /* sections */
 main > .section { margin: 72px 0; }
@@ -194,15 +224,26 @@ main > .section > div {
 
 /* first section clears the fixed nav — unless it is a full-bleed hero */
 main > .section:first-of-type { padding-top: var(--nav-clearance); }
+
 main > .section.hero-container:first-of-type,
-main > .section.full-bleed:first-of-type { padding-top: 0; margin-top: 0; }
+main > .section.full-bleed:first-of-type {
+  padding-top: 0;
+  margin-top: 0;
+}
 
 /* full-bleed sections span the viewport; inner content still constrained by the block */
 main > .section.hero-container > div,
-main > .section.full-bleed > div { max-width: none; padding: 0; }
+main > .section.full-bleed > div {
+  max-width: none;
+  padding: 0;
+}
 
 /* section-metadata style vocabulary (default-content sections only) */
-main .section.tinted { background: var(--surface-color); margin: 0; padding: 56px 0; }
+main .section.tinted {
+  background: var(--surface-color);
+  margin: 0;
+  padding: 56px 0;
+}
 
 /* empty sections (consumed metadata) collapse */
 main .section:empty { display: none; }
@@ -214,7 +255,7 @@ main .hero-container .default-content-wrapper {
   width: 1px;
   height: 1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
 }
 
 @media (width >= 900px) {
@@ -222,6 +263,9 @@ main .hero-container .default-content-wrapper {
 }
 
 @media (width <= 600px) {
-  :root { --heading-font-size-xxl: 32px; --nav-clearance: 96px; }
+  :root {
+    --heading-font-size-xxl: 32px;
+    --nav-clearance: 96px;
+  }
   body { font-size: var(--body-font-size-s); }
 }

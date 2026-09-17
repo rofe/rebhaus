@@ -42,7 +42,10 @@
   object-fit: contain;
 }
 
-.rooms .room-emblem .emblem { padding: 34px; mix-blend-mode: multiply; }
+.rooms .room-emblem .emblem {
+  padding: 34px;
+  mix-blend-mode: multiply;
+}
 
 .rooms .room-emblem .room-photo,
 .rooms .room-emblem .room-photo img {
@@ -90,5 +93,8 @@
 }
 
 @media (width <= 700px) {
-  .rooms .rooms-grid { grid-template-columns: 1fr; gap: 40px; }
+  .rooms .rooms-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
 }

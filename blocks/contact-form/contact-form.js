@@ -9,10 +9,18 @@
  * @param {Element} block
  */
 const FIELDS = [
-  { name: 'vorname', label: 'Vorname', placeholder: 'z. B. Emily', half: true },
-  { name: 'nachname', label: 'Nachname', placeholder: 'Nachname', half: true },
-  { name: 'email', label: 'E-Mail', placeholder: 'z. B. name@example.com', type: 'email' },
-  { name: 'nachricht', label: 'Nachricht', placeholder: 'Ihre Nachricht', textarea: true },
+  {
+    name: 'vorname', label: 'Vorname', placeholder: 'z. B. Emily', half: true,
+  },
+  {
+    name: 'nachname', label: 'Nachname', placeholder: 'Nachname', half: true,
+  },
+  {
+    name: 'email', label: 'E-Mail', placeholder: 'z. B. name@example.com', type: 'email',
+  },
+  {
+    name: 'nachricht', label: 'Nachricht', placeholder: 'Ihre Nachricht', textarea: true,
+  },
 ];
 
 export default function decorate(block) {
