@@ -201,44 +201,6 @@ main > .section.full-bleed:first-of-type { padding-top: 0; margin-top: 0; }
 main > .section.hero-container > div,
 main > .section.full-bleed > div { max-width: none; padding: 0; }
 
-/* cookie-consent bar (matches the live Wix banner) */
-.consent-bar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 24px;
-  background: var(--secondary-color);
-  color: #fff;
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.consent-bar p { margin: 0; flex: 1; }
-.consent-bar a { color: #fff; text-decoration: underline; }
-.consent-bar .consent-actions { display: flex; gap: 10px; flex-shrink: 0; align-items: center; }
-
-.consent-bar button {
-  border: 1px solid #fff;
-  background: transparent;
-  color: #fff;
-  padding: 8px 16px;
-  font-size: 12px;
-  cursor: pointer;
-  border-radius: 0;
-}
-
-.consent-bar button.accept { background: #fff; color: var(--secondary-color); }
-.consent-bar button.consent-close { border: 0; font-size: 18px; padding: 0 6px; }
-
-@media (width <= 700px) {
-  .consent-bar { flex-wrap: wrap; }
-}
-
 /* section-metadata style vocabulary (default-content sections only) */
 main .section.tinted { background: var(--surface-color); margin: 0; padding: 56px 0; }
 

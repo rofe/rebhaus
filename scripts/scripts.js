@@ -205,7 +205,6 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   import('./consent-check.js');
-  import('./consent-banner.js').then(({ default: init }) => init());
   // load anything that can be postponed to the latest here
 }
 
