@@ -1,0 +1,51 @@
+/* info-grid — contact-details strip (Kontakt page) */
+
+/* full-bleed: the info grid spans the viewport (matches the live site) */
+.info-grid.block {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.info-grid .ig-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--rule-color);
+  border-bottom: 1px solid var(--rule-color);
+}
+
+.info-grid .ig-cell {
+  border-left: 1px solid var(--rule-color);
+  padding: 48px 28px;
+  text-align: center;
+}
+
+.info-grid .ig-cell:last-child {
+  border-right: 1px solid var(--rule-color);
+}
+
+.info-grid .ig-cell svg {
+  width: 30px;
+  height: 30px;
+  color: var(--primary-color);
+  margin-bottom: 18px;
+}
+
+.info-grid .ig-cell :is(h1, h2, h3, h4, h5, h6) {
+  font-family: "Avenir", var(--body-font-family);
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--text-color);
+  margin: 0 0 14px;
+}
+
+.info-grid .ig-cell p {
+  margin: 2px 0;
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+@media (width <= 700px) {
+  .info-grid .ig-grid { grid-template-columns: 1fr 1fr; }
+  .info-grid .ig-cell:nth-child(-n+2) { border-top: 0; }
+}

@@ -1,0 +1,113 @@
+/* daily-menu — dismissible daily-menu popup (home page).
+   Matches the live Wix lightbox: a solid white, wide panel centered over the
+   hero (arrows + hero show on the sides), generous vertical spacing. */
+
+.daily-menu .menu-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 130px 0 40px;
+  overflow-y: auto;
+  animation: daily-menu-fade 0.6s ease 1s both;
+}
+
+.daily-menu .menu-modal[hidden] { display: none; }
+
+@keyframes daily-menu-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.daily-menu .menu-card {
+  animation: daily-menu-rise 0.6s ease 1s both;
+}
+
+@keyframes daily-menu-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .daily-menu .menu-modal,
+  .daily-menu .menu-card { animation: none; }
+}
+
+.daily-menu .menu-card {
+  position: relative;
+  background: #fff;
+  width: 72%;
+  max-width: 1180px;
+  min-height: calc(100vh - 170px);
+  padding: 70px 9% 90px;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.daily-menu .menu-close {
+  position: absolute;
+  top: 34px;
+  right: 40px;
+  border: 0;
+  background: none;
+  font-size: 34px;
+  line-height: 1;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.daily-menu .menu-card :is(h1, h2, h3) {
+  font-family: var(--heading-font-family);
+  font-weight: 400;
+  font-size: 30px;
+  margin: 0 0 44px;
+}
+
+.daily-menu .menu-card p {
+  margin: 10px 0;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* a dish name (a line immediately followed by its italic description) gets
+   extra space above, so each menu option reads as its own group */
+.daily-menu .menu-card p:has(+ p em) {
+  margin-top: 40px;
+}
+
+/* price/lunch-box lines get a little space below before the next option */
+.daily-menu .menu-card p:has(em) + p:not(:has(em)) {
+  margin-top: 34px;
+}
+
+/* generous space before each MENU header (authored <strong>) and the day line */
+.daily-menu .menu-card p:has(strong) {
+  margin-top: 64px;
+}
+
+.daily-menu .menu-card p strong {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* the day/subtitle line under the title gets extra air below */
+.daily-menu .menu-card h2 + p {
+  margin-bottom: 56px;
+}
+
+/* descriptions / lunch-box lines (authored <em>) — muted, upright */
+.daily-menu .menu-card em {
+  color: var(--text-muted);
+  font-style: normal;
+}
+
+/* extra breathing room around the single-glyph separators (oppure / +) */
+.daily-menu .menu-card p:only-child,
+.daily-menu .menu-card p:empty { margin: 40px 0; }
+
+@media (width <= 700px) {
+  .daily-menu .menu-card { width: 92%; padding: 56px 24px 64px; }
+  .daily-menu .menu-card p:has(strong) { margin-top: 48px; }
+}

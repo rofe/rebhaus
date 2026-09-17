@@ -1,37 +1,60 @@
-.hero-container .hero-wrapper {
-  max-width: unset;
-  padding: 0;
-}
+/* hero — full-bleed signature hero (logo over food photography) */
 
-.hero {
+.hero.block {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  height: 52vh;
+  min-height: 380px;
+  overflow: hidden;
+  background: #111;
 }
 
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
+.hero.slideshow.block {
+  height: 100vh;
+  min-height: 640px;
 }
 
-.hero picture {
+.hero .hero-stage {
   position: absolute;
-  z-index: -1;
   inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
 }
 
-.hero img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+.hero .hero-stage figure {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  background-size: cover;
+  background-position: center;
 }
 
-@media (width >= 900px) {
-  .hero {
-    padding: 40px 32px;
-  }
+/* slideshow: fade between frames */
+.hero.slideshow .hero-stage figure {
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
+.hero.slideshow .hero-stage figure.active { opacity: 1; }
+
+.hero .hero-logo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.hero .hero-logo img {
+  width: 320px;
+  max-width: 58vw;
+  height: auto;
+  filter: drop-shadow(0 2px 18px rgb(0 0 0 / 35%));
+}
+
+@media (width <= 600px) {
+  .hero.block { height: 42vh; min-height: 300px; }
+  .hero.slideshow.block { height: 88vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero.slideshow .hero-stage figure { transition: none; }
 }

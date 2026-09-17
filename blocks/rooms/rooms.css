@@ -1,0 +1,85 @@
+/* rooms — three banquet-room cards (Säle page) */
+
+.rooms .rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+}
+
+.rooms .room {
+  text-align: center;
+}
+
+/* fixed-size media box: the room photo replaces the emblem IN PLACE on hover —
+   no layout shift, the button below never moves (matches the original). */
+.rooms .room-emblem {
+  position: relative;
+  width: 100%;
+  height: 190px;
+  margin: 0 auto 28px;
+}
+
+/* emblem and photo share the exact same box (same dimensions) — a clean
+   in-place swap with no layout shift */
+.rooms .room-emblem .emblem,
+.rooms .room-emblem .room-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease;
+}
+
+.rooms .room-emblem .emblem {
+  object-fit: contain;
+  padding: 34px;
+  mix-blend-mode: multiply;
+}
+
+.rooms .room-emblem .room-photo {
+  object-fit: cover;
+  opacity: 0;
+}
+
+.rooms .room:hover .emblem { opacity: 0; }
+.rooms .room:hover .room-photo { opacity: 1; }
+
+.rooms .room:hover .emblem { opacity: 0; }
+.rooms .room:hover .room-photo { opacity: 1; }
+
+@media (hover: none) {
+  /* touch devices have no hover — keep the emblem */
+  .rooms .room-emblem .room-photo { display: none; }
+}
+
+.rooms .room p.button-wrapper {
+  margin: 0 0 22px;
+}
+
+.rooms .room a.button {
+  display: block;
+  width: 100%;
+}
+
+.rooms .room .room-cap {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin: 0;
+}
+
+/* the section head (Unsere Räumlichkeiten + lede) is default content above the block */
+.rooms-container .default-content-wrapper {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 40px;
+}
+
+.rooms-container .default-content-wrapper p {
+  color: var(--text-color);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+@media (width <= 700px) {
+  .rooms .rooms-grid { grid-template-columns: 1fr; gap: 40px; }
+}
