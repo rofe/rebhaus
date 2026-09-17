@@ -20,7 +20,8 @@
 }
 
 /* emblem and photo share the exact same box (same dimensions) — a clean
-   in-place swap with no layout shift */
+   in-place swap with no layout shift. Each may be a <picture> (pipeline) or
+   a bare <img>. */
 .rooms .room-emblem .emblem,
 .rooms .room-emblem .room-photo {
   position: absolute;
@@ -30,19 +31,25 @@
   transition: opacity 0.3s ease;
 }
 
-.rooms .room-emblem .emblem {
+.rooms .room-emblem :is(.emblem, .room-photo) img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.rooms .room-emblem .emblem,
+.rooms .room-emblem .emblem img {
   object-fit: contain;
-  padding: 34px;
-  mix-blend-mode: multiply;
 }
 
-.rooms .room-emblem .room-photo {
+.rooms .room-emblem .emblem { padding: 34px; mix-blend-mode: multiply; }
+
+.rooms .room-emblem .room-photo,
+.rooms .room-emblem .room-photo img {
   object-fit: cover;
-  opacity: 0;
 }
 
-.rooms .room:hover .emblem { opacity: 0; }
-.rooms .room:hover .room-photo { opacity: 1; }
+.rooms .room-emblem .room-photo { opacity: 0; }
 
 .rooms .room:hover .emblem { opacity: 0; }
 .rooms .room:hover .room-photo { opacity: 1; }
@@ -52,13 +59,15 @@
   .rooms .room-emblem .room-photo { display: none; }
 }
 
-.rooms .room p.button-wrapper {
+/* room name — non-navigating outline label (matches the live button look) */
+.rooms .room .room-name {
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  font-size: 13px;
+  padding: 13px 20px;
   margin: 0 0 22px;
-}
-
-.rooms .room a.button {
-  display: block;
-  width: 100%;
 }
 
 .rooms .room .room-cap {

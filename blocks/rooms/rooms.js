@@ -1,23 +1,15 @@
 /**
- * rooms — the three banquet rooms on the Säle page. One row per room:
- *   cell 1: room name as an emphasis-wrapped link (→ a.button.secondary) to its photo
- *   cell 2: capacity line (body text)
- * Authoring — one row per room, three cells:
- *   1. emblem image (authored <img>/<picture> — the distinct green mark; editable)
- *   2. room name as an emphasis-wrapped link (→ a.button.secondary) to its photo
- *   3. capacity line (body text)
- * The emblem is now authored content (EW1: moved, not rebuilt) so an editor can
- * swap it. A name-based default asset is used only if a row authors no image.
+ * rooms — the three banquet rooms on the Säle page. One row per room, cells:
+ *   1. emblem image   (authored <img> — the green line mark; passive state)
+ *   2. room name      (text — styled as an outline label, non-navigating)
+ *   3. capacity line  (body text)
+ *   4. room photo     (authored <img> — revealed on hover, same box as emblem)
+ * All imagery is DA-hosted authored content the pipeline ingests. Emblem and
+ * photo share one fixed box and crossfade on hover — no layout shift.
  *
- * schema: stardust/eds-schema/saele.json (rooms group, 3 uniform units)
  * @param {Element} block
  */
-function defaultEmblem(name) {
-  const n = name.toLowerCase();
-  if (/stube|vorgesetz/.test(n)) return '/img/rebhaus/emblem-stube.png';
-  if (/sääli|saeaeli|sali/.test(n)) return '/img/rebhaus/emblem-saeaeli.png';
-  return '/img/rebhaus/emblem-saal.png';
-}
+const outer = (els) => els.filter((el) => !(el.tagName === 'IMG' && el.closest('picture')));
 
 export default function decorate(block) {
   const rows = [...block.children];
@@ -26,47 +18,28 @@ export default function decorate(block) {
   grid.className = 'rooms-grid';
 
   rows.forEach((row) => {
-    const cells = [...row.children];
+    const imgs = outer([...row.querySelectorAll('picture, img')]);
+    const textCells = [...row.children].filter((c) => !c.querySelector('picture, img') && c.textContent.trim());
+    const capCell = textCells.find((c) => /kapazit/i.test(c.textContent));
+    const nameCell = textCells.find((c) => c !== capCell);
+
     const card = document.createElement('div');
     card.className = 'room';
 
-    // classify cells by content (order-tolerant): media, the name link, capacity
-    let media = null;
-    let link = null;
-    let capCell = null;
-    cells.forEach((cell) => {
-      const pic = cell.querySelector('picture, img');
-      const a = cell.querySelector('a');
-      if (pic && !media) media = pic;
-      else if (a && !link) link = a;
-      else capCell = cell;
-    });
+    // media box: emblem (passive) + photo (hover), same dimensions
+    const box = document.createElement('div');
+    box.className = 'room-emblem';
+    if (imgs[0]) { imgs[0].classList.add('emblem'); box.append(imgs[0]); }
+    if (imgs[1]) { imgs[1].classList.add('room-photo'); box.append(imgs[1]); }
+    card.append(box);
 
-    // emblem — MOVE the authored image (EW1); fall back to a default asset
-    const wrap = document.createElement('div');
-    wrap.className = 'room-emblem';
-    if (media) {
-      media.classList.add('emblem');
-      wrap.append(media);
-    } else {
-      const img = document.createElement('img');
-      img.className = 'emblem';
-      img.src = defaultEmblem(link ? link.textContent : '');
-      img.alt = '';
-      wrap.append(img);
+    // room name — non-navigating outline label
+    if (nameCell) {
+      const name = document.createElement('div');
+      name.className = 'room-name';
+      name.append(...nameCell.childNodes);
+      card.append(name);
     }
-    // hover-reveal: the room photo (the name link's target) fades in over the emblem
-    if (link && link.getAttribute('href')) {
-      const photo = document.createElement('img');
-      photo.className = 'room-photo';
-      photo.src = link.getAttribute('href');
-      photo.alt = '';
-      // eager so the hover swap is instant (a hidden lazy image never loads)
-      wrap.append(photo);
-    }
-    card.append(wrap);
-
-    if (link) card.append(link.closest('p') || link);
 
     if (capCell) {
       const cap = capCell.firstElementChild || capCell;

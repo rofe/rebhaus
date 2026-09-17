@@ -4,32 +4,32 @@
  *   default        — single static photo (Säle page)
  *   .hero.slideshow — auto-advancing fullscreen photo slideshow (home)
  *
- * Images are FIXED brand assets referenced root-relative from block code
- * (#67), not authored content. Authoring: an empty <div class="hero"> (or
- * class="hero slideshow"). No authored text — a purely visual signature block.
+ * The photos are AUTHORED inline images (one per row) — DA-hosted editorial
+ * content the pipeline ingests. The logo is the one fixed brand asset kept on
+ * the code bus (#67), root-relative.
  *
- * @ew-exempt all — decorative signature hero, no authored text
+ * @ew-exempt img — decorative signature imagery, no authored text
  * @param {Element} block
  */
-const SLIDES = [
-  '/img/rebhaus/hero-1.jpg', '/img/rebhaus/hero-2.jpg', '/img/rebhaus/hero-3.jpg',
-  '/img/rebhaus/hero-4.jpg', '/img/rebhaus/hero-5.jpg', '/img/rebhaus/hero-6.jpg',
-  '/img/rebhaus/hero-7.jpg', '/img/rebhaus/hero-8.jpg', '/img/rebhaus/hero-9.jpg',
-  '/img/rebhaus/hero-10.jpg',
-];
-
 export default function decorate(block) {
   const isSlideshow = block.classList.contains('slideshow');
-  const imgs = isSlideshow ? SLIDES : [SLIDES[0]];
+
+  // collect authored images (pipeline delivers each as <picture><img></picture>)
+  const media = [...block.querySelectorAll('picture, img')]
+    // keep only outermost (a <picture> wraps its <img>)
+    .filter((el) => !(el.tagName === 'IMG' && el.closest('picture')));
+  const frames = isSlideshow ? media : media.slice(0, 1);
 
   block.textContent = '';
   const stage = document.createElement('div');
   stage.className = 'hero-stage';
 
-  imgs.forEach((src, i) => {
+  frames.forEach((el, i) => {
     const fig = document.createElement('figure');
     if (i === 0) fig.classList.add('active');
-    fig.style.backgroundImage = `url("${src}")`;
+    const img = el.querySelector?.('img') || el;
+    if (i === 0) { img.loading = 'eager'; img.setAttribute('fetchpriority', 'high'); }
+    fig.append(el);
     stage.append(fig);
   });
 
@@ -44,7 +44,7 @@ export default function decorate(block) {
 
   block.append(stage, logo);
 
-  if (isSlideshow && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (isSlideshow && frames.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const figs = [...stage.children];
     let i = 0;
     const advance = () => {
