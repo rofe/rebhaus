@@ -70,6 +70,14 @@
 
 .contact-form .cf-send:hover { background: var(--primary-color); color: #fff; }
 
+.contact-form .cf-note {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.contact-form .cf-note a { color: var(--primary-color); text-decoration: underline; }
+
 @media (width <= 700px) {
   .contact-form .cf-row2 { grid-template-columns: 1fr; }
   .contact-form .cf-inner :is(h1, h2, h3) { font-size: 28px; }

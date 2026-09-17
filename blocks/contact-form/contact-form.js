@@ -50,12 +50,23 @@ export default function decorate(block) {
   submit.textContent = 'Senden';
   form.append(submit);
 
+  // fallback note — mailto only opens a mail app if one is configured, so
+  // surface the address (and pre-filled mailto link) after Senden is clicked
+  const note = document.createElement('p');
+  note.className = 'cf-note';
+  note.hidden = true;
+  form.append(note);
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const v = (n) => (form.elements[n]?.value || '').trim();
     const subject = `Kontakt via rebhaus.ch – ${v('vorname')} ${v('nachname')}`.trim();
     const body = `Name: ${v('vorname')} ${v('nachname')}\nE-Mail: ${v('email')}\n\n${v('nachricht')}`;
-    window.location.href = `mailto:info@rebhaus.ch?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const href = `mailto:info@rebhaus.ch?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = href;
+    note.innerHTML = 'Ihre E-Mail-App sollte sich öffnen. Falls nicht, schreiben Sie uns direkt an '
+      + `<a href="${href}">info@rebhaus.ch</a>.`;
+    note.hidden = false;
   });
 
   inner.append(form);
